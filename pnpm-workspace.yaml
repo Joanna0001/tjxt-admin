@@ -1,0 +1,6 @@
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - cos-js-sdk-v5
+  - esbuild
+  - swiper
+  - vue-demi
