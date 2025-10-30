@@ -7,7 +7,7 @@ import path from "path";
 
 const CWD = process.cwd();
 
-//配置参考 https://vitejs.dev/config/
+//配置参考 https://vitejs.dev/config/1
 export default defineConfig((mode) => {
   const { VITE_BASE_URL } = loadEnv(mode, CWD);
   return {
