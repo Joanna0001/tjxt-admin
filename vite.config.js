@@ -34,7 +34,7 @@ export default defineConfig((mode) => {
     },
     server: {
       port: 18081,
-      host: "0.0.0.0",
+      host: "http://117.72.198.60",
       proxy: {
         "/img-tx": {
           // target: "http://117.72.198.60",
