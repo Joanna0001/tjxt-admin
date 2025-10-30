@@ -5,41 +5,37 @@ import svgLoader from "vite-svg-loader";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from "path";
 
-const CWD = process.cwd();
 
 //配置参考 https://vitejs.dev/config/
-export default defineConfig((mode) => {
-  const { VITE_BASE_URL } = loadEnv(mode, CWD);
-  return {
-    base: "./",
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "./src"),
-      },
+export default defineConfig({
+  base: "./",
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
     },
-    plugins: [vue(), vueJsx(), svgLoader(), splitVendorChunkPlugin()],
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            vue: ["vue", "vue-router"],
-            elementPlus: ["element-plus", "@element-plus/icons-vue"],
-            echarts: ["echarts"],
-            vod: ["vod-js-sdk-v6"],
-            moment: ["moment"],
-          },
-        },
-      },
-      chunkSizeWarningLimit: 1500,
-    },
-    server: {
-      port: 18081,
-      proxy: {
-        "/img-tx": {
-          target: "http://14.103.164.47:10010",
-          changeOrigin: true,
+  },
+  plugins: [vue(), vueJsx(), svgLoader(), splitVendorChunkPlugin()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vue: ["vue", "vue-router"],
+          elementPlus: ["element-plus", "@element-plus/icons-vue"],
+          echarts: ["echarts"],
+          vod: ["vod-js-sdk-v6"],
+          moment: ["moment"],
         },
       },
     },
-  };
+    chunkSizeWarningLimit: 1500,
+  },
+  server: {
+    port: 18081,
+    proxy: {
+      "/img-tx": {
+        target: "http://14.103.164.47:10010",
+        changeOrigin: true,
+      },
+    },
+  },
 });
