@@ -5,10 +5,7 @@ import {USER_KEY, TOKEN_NAME} from "../config/global";
 import  router  from '../router';
 import proxy from '../config/proxy';
 const env = import.meta.env.MODE || "development";
-// http://172.17.2.134:10010
-// https://mock.boxuegu.com/mock/3359
-const host = env === 'mock' ? 'https://tjxt-dev.itheima.net/api' : proxy[env].host; // 如果是mock模式 就不配置host 会走本地Mock拦截
-// const host = "http://172.17.2.134/api-test";
+
 const CODE = {
   LOGIN_TIMEOUT: 1000,
   REQUEST_SUCCESS: 200,
@@ -20,7 +17,7 @@ let isLogin = true
 // let refreshing = ref(false)
 
 const instance = axios.create({
-  baseURL:  host, // 'http://172.17.2.134/api-test',
+  baseURL: import.meta.env.VITE_BASE_URL || "/",
   timeout: 1000,
   withCredentials: false,
 });
