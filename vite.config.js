@@ -35,6 +35,9 @@ export default defineConfig({
       "/img-tx": {
         target: "http://14.103.164.47:10010",
         changeOrigin: true,
+        rewrite: (path) => {
+          return path.replace(/^\/img-tx/, '')
+        }
       },
     },
   },

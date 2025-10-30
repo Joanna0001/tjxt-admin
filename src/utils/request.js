@@ -3,8 +3,6 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { tryRefreshToken } from "./refreshToken";
 import {USER_KEY, TOKEN_NAME} from "../config/global";
 import  router  from '../router';
-import proxy from '../config/proxy';
-const env = import.meta.env.MODE || "development";
 
 const CODE = {
   LOGIN_TIMEOUT: 1000,
