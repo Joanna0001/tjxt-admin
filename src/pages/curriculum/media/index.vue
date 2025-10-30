@@ -104,7 +104,6 @@
 </template>
 <script setup>
 import { ref, reactive, onMounted } from "vue"
-import TcVod from "vod-js-sdk-v6"
 import { ElMessage } from "element-plus"
 // 公用数据
 import { statusData } from "@/utils/commonData"
@@ -147,7 +146,7 @@ onMounted(() => {
 })
 // ------定义方法------
 // 获取初始值
-const init = () => {
+const init = async () => {
   getList()
   // 获取视频签名
   const getSignature = async function () {
@@ -159,6 +158,7 @@ const init = () => {
   }
 
   // 前文中所述的获取上传签名的函数
+  const { default: TcVod } = await import("vod-js-sdk-v6")
   tcVod = new TcVod({
     getSignature: getSignature,
   })

@@ -126,7 +126,6 @@
 import { ref, reactive, onMounted, nextTick, watch } from "vue"
 import { useRouter, useRoute } from "vue-router"
 import { ElMessage, ElLoading } from "element-plus"
-import TcVod from "vod-js-sdk-v6"
 import { formatSeconds,ellipsis } from '@/utils/index'
 // 接口
 import {
@@ -259,7 +258,7 @@ const getVodSignature = async () => {
     .catch((err) => { })
 }
 // 自定义上传
-const httpRequest = (file, id) => {
+const httpRequest = async (file, id) => {
   sectionId.value = id
   // 限制视频格式
   if (["video/mp4", "video/quicktime"].indexOf(file.file.type) == -1) {
@@ -282,6 +281,7 @@ const httpRequest = (file, id) => {
   }
   startLoading()
   // 前文中所述的获取上传签名的函数
+  const { default: TcVod } = await import("vod-js-sdk-v6")
   const tcVod = new TcVod({
     getSignature: getSignature,
   })

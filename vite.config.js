@@ -1,5 +1,5 @@
 // 项目配置页面
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, splitVendorChunkPlugin } from "vite";
 import vue from "@vitejs/plugin-vue";
 import svgLoader from "vite-svg-loader";
 import vueJsx from "@vitejs/plugin-vue-jsx";
@@ -17,24 +17,28 @@ export default defineConfig((mode) => {
         "@": path.resolve(__dirname, "./src"),
       },
     },
-    plugins: [vue(), vueJsx(), svgLoader()],
-    // server:{
-    //   port: 8081
-    // }
+    plugins: [vue(), vueJsx(), svgLoader(), splitVendorChunkPlugin()],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vue: ["vue", "vue-router"],
+            elementPlus: ["element-plus", "@element-plus/icons-vue"],
+            echarts: ["echarts"],
+            vod: ["vod-js-sdk-v6"],
+            moment: ["moment"],
+          },
+        },
+      },
+      chunkSizeWarningLimit: 1500,
+    },
     server: {
       port: 18081,
       host: "0.0.0.0",
-      // proxy: {
-      //     '/img-tx': {
-      //     target: 'http://wisehub-1312394356.cos.ap-shanghai.myqcloud.com',
-      //     // rewrite: (path) => {
-      //     //   return path.replace(/^\/img-tx/, '')
-      //     // }
-      //   },
-      // },
       proxy: {
         "/img-tx": {
-          target: "https://tjxt-dev.itheima.net",
+          // target: "http://117.72.198.60",
+          target: "http://localhost:10010",
           changeOrigin: true,
           // rewrite: (path) => {
           //   return path.replace(/^\/img-tx/, '')
